@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Gallery</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color:skyblue;
+            margin: 0;
+            padding: 0;
+        }
+
+        .gallery-container {
+            margin: 50px auto;
+            width: 80%;
+            max-width: 600px;
+            position: relative;
+        }
+
+        .gallery img {
+            display: none;
+            width: 100%;
+            height:auto;
+            max-width:40%;
+        }
+
+        .gallery img.active {
+            display: block;
+            margin:auto;
+        }
+
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .nav-btn:hover {
+            background-color:green;
+        }
+
+        .nav-btn.prev {
+            left: 10px;
+        }
+
+        .nav-btn.next {
+            right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Image Gallery</h1>
+    <div class="gallery-container">
+        <div class="gallery">
+            <img src="cat1.jpeg" alt="Image 1" class="active">
+            <img src="cat2.jpeg" alt="Image 2">
+            <img src="cat3.jpeg" alt="Image 3">
+        </div>
+        <button class="nav-btn prev">Prev</button>
+        <button class="nav-btn next">Next</button>
+    </div>
+
+    <script>
+        const images = document.querySelectorAll(".gallery img");
+        const prevBtn = document.querySelector(".nav-btn.prev");
+        const nextBtn = document.querySelector(".nav-btn.next");
+        let currentIndex = 0;
+
+        function updateActiveImage() {
+            images.forEach((img, index) => {
+                img.classList.toggle("active", index === currentIndex);
+            });
+        }
+        prevBtn.addEventListener("click", () => {
+            currentIndex = (currentIndex - 1 + images.length) % images.length; 
+            updateActiveImage();
+        });
+
+        nextBtn.addEventListener("click", () => {
+            currentIndex = (currentIndex + 1) % images.length; 
+            updateActiveImage();
+        });
+    </script>
+</body>
+</html>
